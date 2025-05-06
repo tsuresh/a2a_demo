@@ -7,6 +7,7 @@ RUN apt-get update && apt-get install -y \
 
 ADD . /app
 WORKDIR /app
+COPY purchasing_concierge/.env /app/.env
 
 RUN uv sync --frozen
 
