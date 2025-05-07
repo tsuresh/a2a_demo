@@ -80,7 +80,9 @@ Execution:
     So improve the task description to include all the necessary information related to that agent
 - Never ask user permission when you want to connect with remote agents. If you need to make connection with multiple remote agents, directly
     connect with them without asking user permission or asking user preference
-- Always return the detailed order response from the remote agents such as total item, price, and order ID
+- Always show the detailed response information from the seller agent and propagate it properly to the user. 
+- If the remote seller is asking for confirmation, rely the confirmation question to the user if the user haven't do so. 
+- If the user already confirmed the related order in the past conversation history, you can confirm on behalf of the user
 
 Please rely on tools to address the request, and don't make up the response. If you are not sure, please ask the user for more details.
 Focus on the most recent parts of the conversation primarily.
@@ -131,13 +133,13 @@ Current active seller agent: {current_agent["active_agent"]}
         This will send a message to the remote agent named agent_name.
 
         Args:
-          agent_name: The name of the agent to send the task to.
-          task: The comprehensive conversation context summary
+            agent_name: The name of the agent to send the task to.
+            task: The comprehensive conversation context summary
                 and goal to be achieved regarding user inquiry and purchase request.
-          tool_context: The tool context this method runs in.
+            tool_context: The tool context this method runs in.
 
         Yields:
-          A dictionary of JSON data.
+            A dictionary of JSON data.
         """
         if agent_name not in self.remote_agent_connections:
             raise ValueError(f"Agent {agent_name} not found")
